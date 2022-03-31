@@ -1,0 +1,7 @@
+site design
+
+open with mozilla
+shift + ctrl + M
+	PC view-1200
+	Mobile view-320
+	Tablet view-400

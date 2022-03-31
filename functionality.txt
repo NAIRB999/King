@@ -1,0 +1,63 @@
+
+Administrator> 
+	Admin Entry
+	Academic Year
+	Student List (Student Account Activate)
+
+Marketing Manager>
+	View Current Contributions (Downlod)
+
+Marketing Coordinator>
+	Document Title Entry
+	View Current Contributions (comment,edit)
+
+Student>
+	Make Contribution
+	View My Contribution
+
+**Guest >	Report
+	-qryno_of_contributions
+	-qrypercentage_of_contributions
+	-qryno_of_contributors
+	-qry_nocomment
+	-qry_nocommentafter14
+----------------------------------
+program flow
+=========
+home>
+1.student register
+2.login
+3.admin login (un-a, p-111)
+4.student list (activate)
+5.admin logout
+6.student login >>>> test
+===============
+7.admin login
+8.academic year entry (update,delete)
+9.logout
+===============
+10.m coordinator login (un-mc, p-111)
+11.document title upload (choose academic year)
+12.logout
+===============
+13.student login (un-kyaw, p-111)
+14.contribution (choose document title)
+15.logout
+==============
+16.m coordinator login
+17.view contribution + **view email noti
+18.comment
+19.edit
+20.logout
+==============
+21.m manager login9 (un-mm, p-111)
+22.view contribution
+23.download
+24.logout
+===============
+**
+25.qryno_of_contributions
+26.qrypercentage_of_contributions
+27.qryno_of_contributors
+28.qry_nocomment
+29.qry_nocommentafter14

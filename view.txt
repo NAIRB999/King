@@ -1,0 +1,52 @@
+Number of contributions within each Faculty for each academic year
+
+create view qryno_of_contributions
+as
+SELECT ay.academicyearid,ay.academicyear,d.title ,COUNT(contributionid)as Number_of_Contribution
+FROM tblcontribution c, tblacademicyear ay, tbldocumenttitle d
+WHERE c.documenttitleid=d.documenttitleid
+AND d.academicyearid=ay.academicyearid
+GROUP BY ay.academicyearid,ay.academicyear,d.title
+====================
+
+Percentage of contributions by each Faculty for any academic year
+
+create view qrypercentage_of_contributions
+as
+SELECT academicyear,Number_of_Contribution,
+round(100 * Number_of_Contribution/100) AS Percentage
+FROM qryno_of_contributions 
+ GROUP BY academicyear, Number_of_Contribution
+==================
+
+Number of contributors within each Faculty for each academic year
+
+create view qryno_of_contributors
+as
+SELECT ay.academicyearid,ay.academicyear,d.title ,COUNT(studentid)as Number_of_Contributors
+FROM tblcontribution c, tblacademicyear ay, tbldocumenttitle d
+WHERE c.documenttitleid=d.documenttitleid
+AND d.academicyearid=ay.academicyearid
+GROUP BY ay.academicyearid,ay.academicyear,d.title
+
+=================
+Contributions without a comment
+
+create view qry_nocomment
+as
+SELECT ay.academicyear,d.title, c.*
+FROM tblcontribution c, tblacademicyear ay, tbldocumenttitle d
+WHERE c.documenttitleid=d.documenttitleid
+AND d.academicyearid=ay.academicyearid
+AND c.comment='';
+================
+Contributions without a comment after 14 days
+
+create view qry_nocommentafter14
+as
+SELECT ay.academicyear,d.title, c.*
+FROM tblcontribution c, tblacademicyear ay, tbldocumenttitle d
+WHERE c.documenttitleid=d.documenttitleid
+AND d.academicyearid=ay.academicyearid
+AND c.date < date_sub(curdate(), interval 14 day)
+AND c.comment='';

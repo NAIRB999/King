@@ -1,0 +1,66 @@
+create database dbewsd;
+
+create table tbladmin
+(
+	adminid varchar(50) not null primary key,
+	name  varchar(50),
+	email  varchar(50),
+	role  varchar(50),
+	username  varchar(50),
+	password  varchar(50),
+	status  varchar(50)
+);
+
+create table tblstudent
+(
+	studentid varchar(50) not null primary key,
+	name  varchar(50),
+	address varchar(50),	
+	phone  varchar(50),
+	email  varchar(50),
+	username  varchar(50),
+	password  varchar(50)
+);
+
+create table tblacademicyear
+(
+	academicyearid varchar(50) not null primary key,
+	academicyear varchar(50)
+);
+
+create table tbldocumenttitle
+(
+	documenttitleid varchar(50) not null primary key,
+	title varchar(50),
+	image varchar(100),
+	academicyearid varchar(50),
+	startdate varchar(50),
+	enddate varchar(50),
+	status varchar(50),
+	Foreign Key (academicyearid) references tblacademicyear(academicyearid)
+);
+
+create table tblcontribution
+(
+	contributionid varchar(50) not null primary key,
+	documenttype varchar(50),
+	documenttitleid varchar(50) ,
+	date  varchar(50),
+	filename  varchar(100),
+	studentid varchar(50),	
+	description  varchar(50),
+	file  varchar(100),
+	status  varchar(50),
+	comment  varchar(100),
+	Foreign Key (studentid) references tblstudent(studentid),
+	Foreign Key (documenttitleid) references tbldocumenttitle (documenttitleid)
+);
+
+drop table tblcontribution;
+drop table tbldocumenttype;
+drop table tbldocumenttitle;
+
+create table tblnoti
+(
+	noti int
+)

@@ -1,0 +1,56 @@
+Percentage of contributions by each Faculty for any academic year
+
+create view qrypercentage_of_contributions
+as
+SELECT ay.academicyear,d.title ,
+(100 *(SELECT COUNT(contributionid)FROM tblcontribution)/100) as Percentage_of_Contribution
+FROM tblcontribution c, tblacademicyear ay, tbldocumenttitle d
+WHERE c.documenttitleid=d.documenttitleid
+AND d.academicyearid=ay.academicyearid
+GROUP BY ay.academicyear,d.title
+---
+SELECT ay.academicyear,d.title ,
+(100 *(SELECT COUNT(documenttitleid)FROM tblcontribution)/100) as Percentage_of_Contribution
+FROM tblcontribution c, tblacademicyear ay, tbldocumenttitle d
+WHERE c.documenttitleid=d.documenttitleid
+AND d.academicyearid=ay.academicyearid
+GROUP BY ay.academicyear,d.title
+---
+SELECT ay.academicyear,d.title, COUNT(no_year_by_document.no_year) AS No_of_Contribution
+FROM 
+(
+	SELECT c.documenttitleid,COUNT(c.documenttitleid) AS no_year
+	FROM tblcontribution c, tblacademicyear ay, tbldocumenttitle d
+	WHERE c.documenttitleid=d.documenttitleid
+	AND d.academicyearid=ay.academicyearid
+	GROUP BY c.documenttitleid
+)  AS no_year_by_document,
+tblcontribution c, tblacademicyear ay, tbldocumenttitle d 
+WHERE c.documenttitleid=d.documenttitleid
+AND d.academicyearid=ay.academicyearid
+GROUP BY ay.academicyear,d.title
+---------------------------
+SELECT ay.academicyear,c.documenttitleid,COUNT(c.documenttitleid) AS No_of_Contribution
+FROM tblcontribution c, tblacademicyear ay, tbldocumenttitle d
+WHERE c.documenttitleid=d.documenttitleid
+AND d.academicyearid=ay.academicyearid
+GROUP BY ay.academicyear,c.documenttitleid
+//////////////
+create view qrycontributions
+as
+SELECT ay.academicyearid,ay.academicyear,d.title ,COUNT(contributionid)as Number_of_Contribution
+FROM tblcontribution c, tblacademicyear ay, tbldocumenttitle d
+WHERE c.documenttitleid=d.documenttitleid
+AND d.academicyearid=ay.academicyearid
+GROUP BY ay.academicyearid,ay.academicyear,d.title
+>>>
+SELECT   academicyear,Number_of_Contribution,
+100 * sum(Number_of_Contribution)/ sum(Number_of_Contribution)
+FROM (
+  SELECT
+    academicyear, sum(Number_of_Contribution) AS Number_of_Contribution
+  FROM qrycontributions
+  GROUP BY academicyear
+) p
+ORDER BY academicyear;
+///////
